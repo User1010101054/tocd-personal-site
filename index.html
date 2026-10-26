@@ -2,116 +2,397 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#080a12">
 <title>TOCD | ThatOneCoolDev</title>
 <style>
-:root{
-  --bg:#EAF0F6; --ink:#101A2B; --muted:#4B5B73; --accent:#2F4BFF; --line:#C3D2E4; --accent-ink:#fff;
-  box-sizing:border-box;
-  padding-top:env(safe-area-inset-top,0px);
-  padding-bottom:env(safe-area-inset-bottom,0px);
+:root {
+  --bg:#080a12; --ink:#f3f5ff; --muted:#a6aec8;
+  --accent:#a78bfa; --cyan:#67e8f9;
+  --line:rgba(210,220,255,.15);
+  --panel:rgba(20,24,42,.58);
 }
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){--bg:#0C1322; --ink:#E8EEF8; --muted:#92A2BC; --accent:#7F93FF; --line:#243350; --accent-ink:#0C1322;}
+* { box-sizing:border-box }
+html { scroll-behavior:smooth; scroll-padding-top:90px }
+body {
+  margin:0; min-height:100vh; color:var(--ink);
+  background:
+    radial-gradient(ellipse at 12% 8%,rgba(124,58,237,.25),transparent 38rem),
+    radial-gradient(ellipse at 92% 30%,rgba(8,145,178,.16),transparent 35rem),
+    radial-gradient(ellipse at 55% 100%,rgba(219,39,119,.12),transparent 42rem),
+    var(--bg);
+  font:400 1rem/1.65 system-ui,-apple-system,"Segoe UI",sans-serif;
 }
-:root[data-theme="dark"]{--bg:#0C1322; --ink:#E8EEF8; --muted:#92A2BC; --accent:#7F93FF; --line:#243350; --accent-ink:#0C1322;}
-*,*::before,*::after{box-sizing:border-box}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
-body{margin:0;background:var(--bg);color:var(--ink);font:400 1.0625rem/1.6 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
-main{max-width:64rem;margin:0 auto;padding:2.5rem 1.25rem 4rem}
-a{color:inherit}
-a:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
-.top{display:flex;justify-content:space-between;align-items:baseline;font-weight:600}
-.top nav{display:flex;gap:1.25rem}
-.top a{text-decoration:none}
-.top a:hover{text-decoration:underline;text-underline-offset:4px}
-
-h1{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
-.hero{padding:clamp(2.5rem,9vw,6rem) 0 3rem}
-.letters{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(.5rem,2vw,1.5rem);list-style:none;margin:0;padding:0}
-.letters li{border-top:3px solid var(--ink);padding-top:.5rem;transition:border-color .2s,color .2s}
-.letters b{display:block;font:900 clamp(4.5rem,22vw,14rem)/.85 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;letter-spacing:-.04em}
-.letters span{display:block;margin-top:.75rem;font-weight:600;color:var(--muted)}
-.letters li:hover{border-color:var(--accent);color:var(--accent)}
-.letters li:hover span{color:var(--accent)}
-.tag{max-width:34rem;margin:2.5rem 0 0;font-size:1.25rem}
-.tag em{font-style:normal;color:var(--muted)}
-
-section{padding:3rem 0 0}
-h2{margin:0 0 1.25rem;font:800 1.75rem/1.1 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;letter-spacing:-.01em}
-.proj{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
-.proj li{border-bottom:1px solid var(--line)}
-.proj a{display:grid;grid-template-columns:minmax(8rem,14rem) 1fr;gap:.25rem 1.5rem;padding:1.1rem 0;text-decoration:none}
-.proj strong{font:800 1.3rem/1.2 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
-.proj span{color:var(--muted);max-width:42rem}
-.proj a:hover strong{color:var(--accent)}
-.about{max-width:38rem}
-.about p{margin:0 0 1rem}
-.links{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1rem}
-.btn{display:inline-block;padding:.7rem 1.1rem;border:2px solid var(--ink);border-radius:.4rem;font-weight:600;text-decoration:none}
-.btn.main{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
-.btn:hover{transform:translateY(-2px)}
-footer{margin-top:4rem;padding-top:1.25rem;border-top:1px solid var(--line);color:var(--muted);font-size:.95rem}
-@media (max-width:40rem){.proj a{grid-template-columns:1fr}}
-@media (prefers-reduced-motion:reduce){*{transition:none!important}.btn:hover{transform:none}}
+a { color:inherit }
+a:focus-visible,button:focus-visible,input:focus-visible {
+  outline:3px solid var(--cyan); outline-offset:4px;
+}
+.shell { width:min(1080px,calc(100% - 32px)); margin:auto }
+.glass {
+  background:var(--panel);
+  border:1px solid var(--line);
+  box-shadow:0 24px 80px #0005;
+  backdrop-filter:blur(22px) saturate(145%);
+  -webkit-backdrop-filter:blur(22px) saturate(145%);
+}
+.topbar {
+  position:sticky; top:10px; z-index:10;
+  display:flex; justify-content:space-between; align-items:center;
+  gap:18px; margin-top:10px; padding:12px 16px; border-radius:18px;
+}
+.brand {
+  display:flex; align-items:center; gap:10px;
+  font-weight:900; letter-spacing:-.04em; text-decoration:none;
+}
+.brand-mark {
+  display:grid; place-items:center; width:36px; height:36px;
+  border-radius:12px; color:#080a12;
+  background:linear-gradient(135deg,var(--accent),var(--cyan));
+}
+nav { display:flex; flex-wrap:wrap; gap:5px }
+nav a {
+  padding:8px 11px; border-radius:10px; color:var(--muted);
+  font-size:.9rem; font-weight:650; text-decoration:none;
+}
+nav a:hover { background:#ffffff12; color:var(--ink) }
+.toolbar {
+  display:flex; align-items:center; justify-content:space-between;
+  flex-wrap:wrap; gap:12px; margin-top:16px;
+  padding:12px 14px; border-radius:18px;
+}
+.lang-switch,.music-controls,.volume-control {
+  display:flex; align-items:center; gap:8px;
+}
+.lang-label,.volume-control { color:var(--muted); font-size:.82rem }
+.lang-button,.music-button {
+  border:1px solid var(--line); border-radius:11px;
+  color:var(--ink); background:#ffffff08; padding:8px 12px;
+  font:inherit; font-size:.85rem; font-weight:750; cursor:pointer;
+  transition:transform .2s,border-color .2s;
+}
+.lang-button:hover,.music-button:hover { border-color:var(--accent); transform:translateY(-1px) }
+.lang-button[aria-pressed=true] {
+  color:#100b20; background:linear-gradient(135deg,var(--accent),#c4b5fd);
+}
+.music-button {
+  display:flex; align-items:center; gap:8px;
+  background:linear-gradient(135deg,#a78bfa30,#67e8f918);
+}
+.volume-control input { width:85px; accent-color:var(--accent) }
+.hero {
+  position:relative; isolation:isolate; overflow:hidden;
+  margin-top:22px; padding:clamp(26px,6vw,68px);
+  border-radius:30px;
+}
+.hero:after {
+  content:""; position:absolute; z-index:-1;
+  width:320px; height:320px; top:-140px; right:-100px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#a78bfa55,#67e8f925);
+  filter:blur(18px);
+}
+.eyebrow {
+  display:flex; align-items:center; gap:9px;
+  color:var(--cyan); font-size:.78rem; font-weight:800;
+  letter-spacing:.13em; text-transform:uppercase;
+}
+.eyebrow:before {
+  content:""; width:7px; height:7px; border-radius:50%;
+  background:var(--cyan); box-shadow:0 0 14px var(--cyan);
+}
+.letters {
+  display:grid; grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:clamp(8px,2vw,22px); list-style:none; margin:22px 0 0; padding:0;
+}
+.letters li { border-top:2px solid #ffffff50; padding-top:12px; min-width:0 }
+.letters li:hover { border-color:var(--cyan) }
+.letters b {
+  display:block; font-size:clamp(4rem,17vw,10rem);
+  font-weight:950; line-height:.95; letter-spacing:-.09em;
+  background:linear-gradient(145deg,#fff 15%,#c4b5fd 56%,#67e8f9);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.letters span { display:block; margin-top:12px; color:var(--muted); font-weight:700 }
+.tag {
+  max-width:610px; margin:32px 0 0;
+  font-size:clamp(1.15rem,2.5vw,1.5rem); line-height:1.5;
+}
+.tag em { display:block; margin-top:10px; color:var(--muted); font-size:.95rem; font-style:normal }
+section.content {
+  margin-top:22px; padding:clamp(22px,4vw,36px); border-radius:24px;
+}
+h2 {
+  display:flex; align-items:center; gap:12px;
+  margin:0 0 22px; font-size:1.4rem; letter-spacing:-.04em;
+}
+h2:before {
+  content:""; width:4px; height:24px; border-radius:9px;
+  background:linear-gradient(var(--accent),var(--cyan));
+}
+.proj { list-style:none; margin:0; padding:0; display:grid; gap:12px }
+.proj a {
+  display:grid; grid-template-columns:minmax(130px,.55fr) 1fr auto;
+  align-items:center; gap:16px; padding:19px;
+  border:1px solid var(--line); border-radius:16px;
+  background:#ffffff05; text-decoration:none;
+  transition:background .2s,border-color .2s,transform .2s;
+}
+.proj a:hover { background:#a78bfa12; border-color:#a78bfa88; transform:translateY(-2px) }
+.proj strong { font-size:1.05rem }
+.proj span { color:var(--muted); font-size:.93rem }
+.proj .arrow { color:var(--cyan); font-size:1.15rem }
+.about { max-width:720px; color:var(--muted) }
+.about p { margin:0 0 14px }
+.about p:last-child { margin-bottom:0 }
+.links { display:flex; flex-wrap:wrap; gap:10px }
+.btn {
+  display:inline-flex; align-items:center; gap:8px;
+  padding:10px 16px; min-height:44px;
+  border:1px solid var(--line); border-radius:12px;
+  background:#ffffff08; font-weight:750; text-decoration:none;
+}
+.btn.main {
+  color:#100b20; border-color:transparent;
+  background:linear-gradient(120deg,var(--accent),var(--cyan));
+}
+.btn:hover { border-color:var(--accent); transform:translateY(-2px) }
+.credit { margin:14px 4px 0; color:var(--muted); font-size:.78rem; line-height:1.9 }
+.credit a { text-underline-offset:3px }
+footer {
+  display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;
+  margin:24px 0 30px; padding:18px 4px; color:var(--muted); font-size:.85rem;
+}
+footer .note { color:var(--cyan) }
+@media(max-width:620px) {
+  .shell { width:calc(100% - 20px) }
+  .topbar { align-items:flex-start; flex-direction:column }
+  nav { width:100%; gap:2px }
+  nav a { padding:7px 9px }
+  .music-controls { width:100%; justify-content:space-between }
+  .letters b { font-size:clamp(3.4rem,19vw,7rem) }
+  .proj a { grid-template-columns:1fr auto; gap:6px 12px; padding:16px }
+  .proj strong,.proj span { grid-column:1 }
+  .proj .arrow { grid-column:2; grid-row:1/span 2 }
+}
+@media(prefers-reduced-motion:reduce) {
+  *,*::before,*::after { scroll-behavior:auto!important; transition:none!important }
+  .proj a:hover,.btn:hover,.lang-button:hover,.music-button:hover { transform:none }
+}
+@supports not ((backdrop-filter:blur(2px)) or (-webkit-backdrop-filter:blur(2px))) {
+  .glass { background:rgba(20,24,42,.95) }
+}
 </style>
 </head>
 <body>
-<main>
-  <header class="top">
-    <a href="#top">tocd</a>
-    <nav aria-label="Main"><a href="#projects">Projects</a><a href="#about">About</a><a href="#contact">Contact</a></nav>
+<main class="shell">
+  <header class="topbar glass">
+    <a class="brand" href="#top" aria-label="TOCD home">
+      <span class="brand-mark">T</span><span>tocd<span style="color:var(--cyan)">.</span></span>
+    </a>
+    <nav aria-label="Main navigation" data-i18n-aria="navLabel">
+      <a href="#projects" data-i18n="navProjects">Projects</a>
+      <a href="#about" data-i18n="navAbout">About</a>
+      <a href="#contact" data-i18n="navContact">Contact</a>
+    </nav>
   </header>
 
-  <div class="hero" id="top">
-    <h1 aria-label="TOCD, short for ThatOneCoolDev">
-      <ul class="letters" aria-hidden="true">
-        <li><b>T</b><span>That</span></li>
-        <li><b>O</b><span>One</span></li>
-        <li><b>C</b><span>Cool</span></li>
-        <li><b>D</b><span>Dev</span></li>
-      </ul>
-    </h1>
-    <p class="tag">I build small, useful things and ship them. <em>No tracking, no DRM, no subscriptions to use your own stuff.</em></p>
+  <div class="toolbar glass">
+    <div class="lang-switch" role="group" aria-label="Language">
+      <span class="lang-label" data-i18n="language">LANG</span>
+      <button class="lang-button" type="button" data-lang="en" aria-pressed="true">EN</button>
+      <button class="lang-button" type="button" data-lang="lt" aria-pressed="false">LT</button>
+    </div>
+    <div class="music-controls">
+      <button class="music-button" id="musicBtn" type="button" aria-pressed="false">
+        <span id="musicIcon" aria-hidden="true">▶</span>
+        <span id="musicBtnText" data-i18n="playMusic">Play metal beat</span>
+      </button>
+      <label class="volume-control" for="volume">
+        <span data-i18n="volume">Volume</span>
+        <input id="volume" type="range" min="0" max="1" step="0.05" value="0.5">
+      </label>
+    </div>
   </div>
 
-  <section id="projects">
-    <h2>Projects</h2>
+  <audio id="bgMusic" preload="none" loop>
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+
+  <section class="hero glass" id="top">
+    <p class="eyebrow" data-i18n="eyebrow">Independent developer · Lithuania</p>
+    <h1 style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)">TOCD, ThatOneCoolDev</h1>
+    <ul class="letters" aria-hidden="true">
+      <li><b>T</b><span>That</span></li>
+      <li><b>O</b><span>One</span></li>
+      <li><b>C</b><span>Cool</span></li>
+      <li><b>D</b><span>Dev</span></li>
+    </ul>
+    <p class="tag">
+      <span data-i18n="tagline">I build small, useful things and ship them.</span>
+      <em data-i18n="taglineEm">No tracking, no DRM, no subscriptions to use your own stuff.</em>
+    </p>
+  </section>
+
+  <section class="content glass" id="projects">
+    <h2 data-i18n="projectsTitle">Projects</h2>
     <ul class="proj">
       <li>
         <a href="https://github.com/User1010101054/QRCodeGen" target="_blank" rel="noopener noreferrer">
           <strong>QRCodeGen</strong>
-          <span>A QR code generator. View the source code and project on GitHub.</span>
+          <span data-i18n="qrDescription">A QR code generator. View the source code and project on GitHub.</span>
+          <span class="arrow" aria-hidden="true">↗</span>
         </a>
       </li>
       <li>
         <a href="https://github.com/User1010101054/South-Linux" target="_blank" rel="noopener noreferrer">
           <strong>South Linux</strong>
-          <span>A Linux distribution project. Explore the source code and development on GitHub.</span>
+          <span data-i18n="southDescription">A Linux distribution project. Explore the source code and development on GitHub.</span>
+          <span class="arrow" aria-hidden="true">↗</span>
         </a>
       </li>
     </ul>
   </section>
 
-  <section id="about">
-    <h2>About</h2>
+  <section class="content glass" id="about">
+    <h2 data-i18n="aboutTitle">About</h2>
     <div class="about">
-      <p>I’m a programmer from Lithuania. I mostly write Python and mess around with Linux, and I build personal projects because I want them to exist.</p>
-      <p>I believe if you bought it, you own it. That’s why I care about open tools and digital ownership.</p>
+      <p data-i18n="aboutP1">I’m a programmer from Lithuania. I mostly write Python and mess around with Linux, and I build personal projects because I want them to exist.</p>
+      <p data-i18n="aboutP2">I believe if you bought it, you own it. That’s why I care about open tools and digital ownership.</p>
     </div>
   </section>
 
-  <section id="contact">
-    <h2>Contact</h2>
+  <section class="content glass" id="contact">
+    <h2 data-i18n="contactTitle">Contact</h2>
     <div class="links">
-      <a class="btn main" href="mailto:b35forlife.tuta.io">Email me</a>
-      <a <a class="btn" href="https://github.com/User1010101054" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a class="btn main" href="mailto:b35forlife@tuta.io"><span>✉</span><span data-i18n="emailMe">Email me</span></a>
+      <a class="btn" href="https://github.com/User1010101054" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
     </div>
   </section>
 
-  <footer>© <span id="y">2026</span> TOCD (ThatOneCoolDev)</footer>
+  <p class="credit">
+    <span data-i18n="musicCredit">Background music:</span>
+    <span data-i18n="musicTrack">your chosen metal beat</span>.
+    <span data-i18n="musicFile">Audio file:</span> <code>music.mp3</code>.
+    <span data-i18n="musicLicense">Check the track's license and provide attribution if required.</span>
+  </p>
+
+  <footer>
+    <span>© <span id="year">2026</span> TOCD (ThatOneCoolDev)</span>
+    <span class="note" data-i18n="footerNote">Built independently. No tracking.</span>
+  </footer>
 </main>
-<script>document.getElementById("y").textContent=new Date().getFullYear();</script>
+
+<script>
+const translations = {
+  en: {
+    navLabel:"Main navigation", navProjects:"Projects", navAbout:"About",
+    navContact:"Contact", language:"LANG", playMusic:"Play metal beat",
+    pauseMusic:"Pause music", volume:"Volume",
+    eyebrow:"Independent developer · Lithuania",
+    tagline:"I build small, useful things and ship them.",
+    taglineEm:"No tracking, no DRM, no subscriptions to use your own stuff.",
+    projectsTitle:"Projects",
+    qrDescription:"A QR code generator. View the source code and project on GitHub.",
+    southDescription:"A Linux distribution project. Explore the source code and development on GitHub.",
+    aboutTitle:"About",
+    aboutP1:"I’m a programmer from Lithuania. I mostly write Python and mess around with Linux, and I build personal projects because I want them to exist.",
+    aboutP2:"I believe if you bought it, you own it. That’s why I care about open tools and digital ownership.",
+    contactTitle:"Contact", emailMe:"Email me",
+    musicCredit:"Background music:", musicTrack:"your chosen metal beat",
+    musicFile:"Audio file:", musicLicense:"Check the track's license and provide attribution if required.",
+    footerNote:"Built independently. No tracking.",
+    musicError:"Could not play audio. Check that music.mp3 exists."
+  },
+  lt: {
+    navLabel:"Pagrindinė navigacija", navProjects:"Projektai", navAbout:"Apie",
+    navContact:"Kontaktai", language:"KALBA", playMusic:"Leisti metalą",
+    pauseMusic:"Pristabdyti muziką", volume:"Garsumas",
+    eyebrow:"Nepriklausomas kūrėjas · Lietuva",
+    tagline:"Kuriu mažus, naudingus dalykus ir juos išleidžiu.",
+    taglineEm:"Jokio sekimo, DRM ar prenumeratų, kad galėtum naudotis savo daiktais.",
+    projectsTitle:"Projektai",
+    qrDescription:"QR kodų generatorius. Peržiūrėkite kodą ir projektą GitHub platformoje.",
+    southDescription:"Linux distribucijos projektas. Peržiūrėkite kodą ir kūrimo eigą GitHub platformoje.",
+    aboutTitle:"Apie",
+    aboutP1:"Esu programuotojas iš Lietuvos. Daugiausia rašau Python kalba, eksperimentuoju su Linux ir kuriu asmeninius projektus, nes noriu, kad jie egzistuotų.",
+    aboutP2:"Manau, kad jei nusipirkai daiktą, jis priklauso tau. Todėl man svarbūs atviri įrankiai ir skaitmeninė nuosavybė.",
+    contactTitle:"Kontaktai", emailMe:"Rašyti el. paštu",
+    musicCredit:"Foninė muzika:", musicTrack:"tavo pasirinktas metalinis kūrinys",
+    musicFile:"Garso failas:", musicLicense:"Patikrink kūrinio licenciją ir nurodyk autorių, jei to reikalaujama.",
+    footerNote:"Sukurta savarankiškai. Be sekimo.",
+    musicError:"Nepavyko paleisti garso. Patikrink, ar yra music.mp3 failas."
+  }
+};
+
+const audio = document.getElementById("bgMusic");
+const musicBtn = document.getElementById("musicBtn");
+const musicText = document.getElementById("musicBtnText");
+const musicIcon = document.getElementById("musicIcon");
+const volume = document.getElementById("volume");
+
+audio.volume = Number(volume.value);
+
+function updateMusicButton() {
+  const lang = document.documentElement.lang;
+  const playing = !audio.paused;
+  musicText.textContent = translations[lang][playing ? "pauseMusic" : "playMusic"];
+  musicIcon.textContent = playing ? "Ⅱ" : "▶";
+  musicBtn.setAttribute("aria-pressed", String(playing));
+}
+
+function setLanguage(lang) {
+  if (!translations[lang]) lang = "en";
+  document.documentElement.lang = lang;
+
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const value = translations[lang][el.dataset.i18n];
+    if (value !== undefined) el.textContent = value;
+  });
+
+  document.querySelectorAll("[data-i18n-aria]").forEach(el => {
+    const value = translations[lang][el.dataset.i18nAria];
+    if (value !== undefined) el.setAttribute("aria-label", value);
+  });
+
+  document.querySelectorAll("[data-lang]").forEach(btn => {
+    btn.setAttribute("aria-pressed", String(btn.dataset.lang === lang));
+  });
+
+  try { localStorage.setItem("tocd-language", lang); } catch (_) {}
+  updateMusicButton();
+}
+
+document.querySelectorAll("[data-lang]").forEach(btn => {
+  btn.addEventListener("click", () => setLanguage(btn.dataset.lang));
+});
+
+musicBtn.addEventListener("click", async () => {
+  if (!audio.paused) {
+    audio.pause();
+    return;
+  }
+  try {
+    await audio.play();
+  } catch (error) {
+    const lang = document.documentElement.lang;
+    musicText.textContent = translations[lang].musicError;
+    console.error("Audio playback failed:", error);
+  }
+});
+
+audio.addEventListener("play", updateMusicButton);
+audio.addEventListener("pause", updateMusicButton);
+volume.addEventListener("input", () => { audio.volume = Number(volume.value); });
+
+document.getElementById("year").textContent = new Date().getFullYear();
+
+let language = "en";
+try {
+  const saved = localStorage.getItem("tocd-language");
+  if (saved && translations[saved]) language = saved;
+} catch (_) {}
+setLanguage(language);
+</script>
 </body>
 </html>
