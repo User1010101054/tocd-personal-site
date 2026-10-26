@@ -1,0 +1,117 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TOCD | ThatOneCoolDev</title>
+<style>
+:root{
+  --bg:#EAF0F6; --ink:#101A2B; --muted:#4B5B73; --accent:#2F4BFF; --line:#C3D2E4; --accent-ink:#fff;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--bg:#0C1322; --ink:#E8EEF8; --muted:#92A2BC; --accent:#7F93FF; --line:#243350; --accent-ink:#0C1322;}
+}
+:root[data-theme="dark"]{--bg:#0C1322; --ink:#E8EEF8; --muted:#92A2BC; --accent:#7F93FF; --line:#243350; --accent-ink:#0C1322;}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1.0625rem/1.6 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+main{max-width:64rem;margin:0 auto;padding:2.5rem 1.25rem 4rem}
+a{color:inherit}
+a:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.top{display:flex;justify-content:space-between;align-items:baseline;font-weight:600}
+.top nav{display:flex;gap:1.25rem}
+.top a{text-decoration:none}
+.top a:hover{text-decoration:underline;text-underline-offset:4px}
+
+h1{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+.hero{padding:clamp(2.5rem,9vw,6rem) 0 3rem}
+.letters{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(.5rem,2vw,1.5rem);list-style:none;margin:0;padding:0}
+.letters li{border-top:3px solid var(--ink);padding-top:.5rem;transition:border-color .2s,color .2s}
+.letters b{display:block;font:900 clamp(4.5rem,22vw,14rem)/.85 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;letter-spacing:-.04em}
+.letters span{display:block;margin-top:.75rem;font-weight:600;color:var(--muted)}
+.letters li:hover{border-color:var(--accent);color:var(--accent)}
+.letters li:hover span{color:var(--accent)}
+.tag{max-width:34rem;margin:2.5rem 0 0;font-size:1.25rem}
+.tag em{font-style:normal;color:var(--muted)}
+
+section{padding:3rem 0 0}
+h2{margin:0 0 1.25rem;font:800 1.75rem/1.1 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;letter-spacing:-.01em}
+.proj{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.proj li{border-bottom:1px solid var(--line)}
+.proj a{display:grid;grid-template-columns:minmax(8rem,14rem) 1fr;gap:.25rem 1.5rem;padding:1.1rem 0;text-decoration:none}
+.proj strong{font:800 1.3rem/1.2 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+.proj span{color:var(--muted);max-width:42rem}
+.proj a:hover strong{color:var(--accent)}
+.about{max-width:38rem}
+.about p{margin:0 0 1rem}
+.links{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1rem}
+.btn{display:inline-block;padding:.7rem 1.1rem;border:2px solid var(--ink);border-radius:.4rem;font-weight:600;text-decoration:none}
+.btn.main{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn:hover{transform:translateY(-2px)}
+footer{margin-top:4rem;padding-top:1.25rem;border-top:1px solid var(--line);color:var(--muted);font-size:.95rem}
+@media (max-width:40rem){.proj a{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}.btn:hover{transform:none}}
+</style>
+</head>
+<body>
+<main>
+  <header class="top">
+    <a href="#top">tocd</a>
+    <nav aria-label="Main"><a href="#projects">Projects</a><a href="#about">About</a><a href="#contact">Contact</a></nav>
+  </header>
+
+  <div class="hero" id="top">
+    <h1 aria-label="TOCD, short for ThatOneCoolDev">
+      <ul class="letters" aria-hidden="true">
+        <li><b>T</b><span>That</span></li>
+        <li><b>O</b><span>One</span></li>
+        <li><b>C</b><span>Cool</span></li>
+        <li><b>D</b><span>Dev</span></li>
+      </ul>
+    </h1>
+    <p class="tag">I build small, useful things and ship them. <em>No tracking, no DRM, no subscriptions to use your own stuff.</em></p>
+  </div>
+
+  <section id="projects">
+    <h2>Projects</h2>
+    <ul class="proj">
+      <li>
+        <a href="https://github.com/User1010101054/QRCodeGen" target="_blank" rel="noopener noreferrer">
+          <strong>QRCodeGen</strong>
+          <span>A QR code generator. View the source code and project on GitHub.</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://github.com/User1010101054/South-Linux" target="_blank" rel="noopener noreferrer">
+          <strong>South Linux</strong>
+          <span>A Linux distribution project. Explore the source code and development on GitHub.</span>
+        </a>
+      </li>
+    </ul>
+  </section>
+
+  <section id="about">
+    <h2>About</h2>
+    <div class="about">
+      <p>I’m a programmer from Lithuania. I mostly write Python and mess around with Linux, and I build personal projects because I want them to exist.</p>
+      <p>I believe if you bought it, you own it. That’s why I care about open tools and digital ownership.</p>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <div class="links">
+      <a class="btn main" href="mailto:you@example.com">Email me</a>
+      <a class="btn" href="#">GitHub</a>
+    </div>
+  </section>
+
+  <footer>© <span id="y">2026</span> TOCD (ThatOneCoolDev)</footer>
+</main>
+<script>document.getElementById("y").textContent=new Date().getFullYear();</script>
+</body>
+</html>
